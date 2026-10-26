@@ -18,9 +18,9 @@
   "author": "纸鱼",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CHANGE_ME/dsh-fish-bill.git"
+    "url": "git+https://github.com/Atlanticfishyuyu/zhiyuzhicha.git"
   },
-  "bugs": { "url": "https://github.com/CHANGE_ME/dsh-fish-bill/issues" },
-  "homepage": "https://github.com/CHANGE_ME/dsh-fish-bill#readme",
+  "bugs": { "url": "https://github.com/Atlanticfishyuyu/zhiyuzhicha/issues" },
+  "homepage": "https://github.com/Atlanticfishyuyu/zhiyuzhicha#readme",
   "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }
 }
