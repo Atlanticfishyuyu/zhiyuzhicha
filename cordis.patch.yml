@@ -1,0 +1,4 @@
+# fish-bill bundle patch：把肥鱼账单插进插件表
+- insert:
+    - id: fish-bill
+      name: dsh-fish-bill

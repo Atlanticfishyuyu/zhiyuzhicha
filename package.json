@@ -1,0 +1,26 @@
+{
+  "name": "dsh-fish-bill",
+  "version": "0.1.0",
+  "description": "肥鱼账单：只看 AI 搭子花了你多少钱（今天/本周/本月/累计 + 投喂入口）",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": { ".": "./lib/index.js" },
+  "files": [
+    "lib/",
+    "assets/",
+    "cordis.patch.yml",
+    "README.md",
+    "PRIVACY.md",
+    "LICENSE"
+  ],
+  "keywords": ["dsh", "dsh-plugin", "balance", "deepseek", "bill"],
+  "license": "MIT",
+  "author": "纸鱼",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CHANGE_ME/dsh-fish-bill.git"
+  },
+  "bugs": { "url": "https://github.com/CHANGE_ME/dsh-fish-bill/issues" },
+  "homepage": "https://github.com/CHANGE_ME/dsh-fish-bill#readme",
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }
+}
