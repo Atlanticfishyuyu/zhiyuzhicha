@@ -1,6 +1,6 @@
 {
   "name": "dsh-fish-bill",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "看 AI 搭子（肥鱼）花了多少钱的 DSH 面板插件",
   "type": "module",
   "main": "lib/index.js",

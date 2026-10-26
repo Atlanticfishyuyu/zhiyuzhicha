@@ -3,31 +3,86 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>肥鱼账单</title>
 <style>
-:root{--bg:#0f1117;--card:#181b23;--line:#262b36;--txt:#e8eaf0;--dim:#8b93a7;--accent:#7dd3fc}
+:root{
+  --bg:#0d0f14; --card:#161a22; --card2:#1b202a; --line:#252b37;
+  --txt:#e9ecf3; --dim:#8a93a6; --faint:#5d6577;
+  --accent:#7dd3fc; --up:#fbbf24; --down:#4ade80; --peak:#38bdf8;
+}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;padding:34px 20px 60px;color:var(--txt);
-  background:radial-gradient(1100px 560px at 72% -8%,#1c2636,#0f1117 62%);
-  font:14px/1.65 "Microsoft YaHei",system-ui,sans-serif}
-.wrap{max-width:760px;margin:0 auto}
-.head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
-.head .ava{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-size:24px;
-  background:linear-gradient(180deg,#1e3a5f,#16283d);border:1px solid #2b4a6f}
-h1{font-size:19px;margin:0}
-.sub{color:var(--dim);font-size:12px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:20px 0 16px}
-.card{background:linear-gradient(180deg,#1a1e28,#161922);border:1px solid var(--line);border-radius:16px;padding:15px 17px}
-.k{color:var(--dim);font-size:12px;margin-bottom:5px}
-.v{font-size:25px;font-weight:600;letter-spacing:.5px}
-.v small{font-size:12px;color:var(--dim);font-weight:400;margin-left:3px}
-.chart{display:flex;align-items:flex-end;gap:5px;height:110px;margin-top:8px}
-.chart div{flex:1;background:linear-gradient(180deg,#38bdf8,#1d4ed8);border-radius:4px 4px 2px 2px;min-height:2px;position:relative}
-.chart div span{position:absolute;bottom:-18px;left:0;right:0;text-align:center;font-size:10px;color:#5f6779}
-.feed{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:11px 18px;border-radius:999px;
-  font-size:14px;text-decoration:none;color:#fde68a;background:linear-gradient(180deg,#3a2b12,#2a1f0d);border:1px solid #6b4f1d}
-.feed:hover{border-color:#a97c26;color:#fef3c7}
-.muted{color:var(--dim);font-size:12px}
-.tip{margin-top:14px;padding:11px 13px;border-radius:12px;background:#1b1f2a;border:1px solid #26303f;color:#cfd6e6;font-size:13px}
+body{margin:0;min-height:100vh;padding:36px 18px 64px;color:var(--txt);
+  background:radial-gradient(1200px 620px at 76% -10%,#1a2432,#0d0f14 64%);
+  font:14px/1.65 "Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto}
+
+/* 头部 */
+.head{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.head .ava{width:50px;height:50px;flex:none;border-radius:16px;display:grid;place-items:center;font-size:26px;
+  background:linear-gradient(160deg,#1e3a5f,#152538);border:1px solid #2b4a6f;
+  box-shadow:0 6px 18px rgba(0,0,0,.35)}
+h1{font-size:20px;margin:0;letter-spacing:.3px}
+.sub{color:var(--dim);font-size:12px;margin-top:2px}
+
+/* 卡片通用 */
+.card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);
+  border-radius:18px;padding:18px 20px}
+.card + .card{margin-top:14px}
+.card-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px}
+.card-title{font-size:14px;font-weight:600}
+.card-hint{font-size:11.5px;color:var(--faint)}
+
+/* 四个数字 */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:14px}
+.stat{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);
+  border-radius:18px;padding:16px 18px;transition:border-color .18s}
+.stat:hover{border-color:#31405a}
+.k{color:var(--dim);font-size:12.5px;display:flex;align-items:center;gap:6px}
+.v{font-size:27px;font-weight:650;letter-spacing:.4px;margin:6px 0 4px;font-variant-numeric:tabular-nums}
+.v small{font-size:12px;color:var(--faint);font-weight:400;margin-left:3px}
+.note{font-size:11.5px;color:var(--faint);line-height:1.5}
+.note b{font-weight:600}
+.note .up{color:var(--up)} .note .down{color:var(--down)} .note .same{color:var(--dim)}
+
+/* 图表 */
+.chart{display:flex;align-items:flex-end;gap:6px;height:132px;padding-top:20px}
+.col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative;cursor:default}
+.col .bar{width:100%;max-width:34px;border-radius:5px 5px 2px 2px;min-height:2px;
+  background:linear-gradient(180deg,#3b82c4,#1e3a6b);transition:filter .15s, transform .15s}
+.col:hover .bar{filter:brightness(1.35)}
+.col .amt{font-size:10px;color:var(--faint);margin-bottom:4px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.col.peak .bar{background:linear-gradient(180deg,#67d3ff,#2563eb);box-shadow:0 0 14px rgba(56,189,248,.35)}
+.col.peak .amt{color:var(--peak);font-weight:600}
+.col .day{font-size:10px;color:var(--faint);margin-top:6px}
+.col .mark{position:absolute;top:-16px;font-size:9.5px;color:var(--peak);opacity:0}
+.col.peak .mark{opacity:1}
+
+/* 明细 */
+.drops{max-height:260px;overflow:auto;margin:-4px -4px 0;padding:0 4px}
+.dgroup + .dgroup{margin-top:12px}
+.dhead{font-size:12px;color:var(--dim);display:flex;justify-content:space-between;
+  padding-bottom:5px;border-bottom:1px dashed #232a36;margin-bottom:6px}
+.dhead b{color:var(--txt);font-weight:600}
+.drow{display:flex;justify-content:space-between;align-items:center;padding:5px 2px;font-size:12.5px}
+.drow + .drow{border-top:1px solid rgba(37,43,55,.55)}
+.drow .time{color:var(--dim);font-variant-numeric:tabular-nums}
+.drow .money{color:#fda4a4;font-variant-numeric:tabular-nums}
+.empty{color:var(--faint);font-size:12.5px;padding:10px 2px}
+
+/* 底部 */
+.foot{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.feed{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;
+  font-size:13.5px;text-decoration:none;color:#fde68a;background:linear-gradient(180deg,#3a2b12,#2a1f0d);
+  border:1px solid #6b4f1d;transition:all .18s}
+.feed:hover{border-color:#a97c26;color:#fef3c7;transform:translateY(-1px)}
+button{font:inherit;font-size:12.5px;padding:7px 14px;border-radius:9px;cursor:pointer;
+  color:var(--txt);background:#202733;border:1px solid #303a4a;transition:all .15s}
+button:hover:not(:disabled){background:#27303e;border-color:#3f4c60}
+button:disabled{opacity:.6;cursor:default}
+.tip{margin-top:12px;padding:11px 13px;border-radius:12px;background:#1a1f29;border:1px solid #26303f;
+  color:#c8d1e2;font-size:12.5px}
+.muted{color:var(--faint);font-size:11.5px}
 </style></head><body><div class="wrap">
+
 <div class="head">
   <div class="ava">🐟</div>
   <div>
@@ -37,64 +92,174 @@ h1{font-size:19px;margin:0}
 </div>
 
 <div class="grid">
-  <div class="card"><div class="k">当前余额</div><div class="v" id="balance">—<small>元</small></div></div>
-  <div class="card"><div class="k">今天她花了</div><div class="v" id="today">—<small>元</small></div></div>
-  <div class="card"><div class="k">本周</div><div class="v" id="week">—<small>元</small></div></div>
-  <div class="card"><div class="k">本月</div><div class="v" id="month">—<small>元</small></div></div>
+  <div class="stat">
+    <div class="k">当前余额</div>
+    <div class="v" id="balance">—<small>元</small></div>
+    <div class="note">她 DeepSeek 账户里还剩多少，不是花了多少</div>
+  </div>
+  <div class="stat">
+    <div class="k">今天她花了</div>
+    <div class="v" id="today">—<small>元</small></div>
+    <div class="note" id="noteToday">—</div>
+  </div>
+  <div class="stat">
+    <div class="k">本周</div>
+    <div class="v" id="week">—<small>元</small></div>
+    <div class="note" id="noteWeek">—</div>
+  </div>
+  <div class="stat">
+    <div class="k">本月</div>
+    <div class="v" id="month">—<small>元</small></div>
+    <div class="note" id="noteMonth">—</div>
+  </div>
 </div>
 
 <div class="card">
-  <div class="k">最近 14 天她花了多少</div>
+  <div class="card-head">
+    <div class="card-title">最近 14 天，她每天花多少</div>
+    <div class="card-hint">柱子越高=那天花得越多 · 蓝色的那天最高</div>
+  </div>
   <div class="chart" id="chart"></div>
 </div>
 
-<div class="card" style="margin-top:14px">
-  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+<div class="card">
+  <div class="card-head">
+    <div class="card-title">钱是什么时候掉的</div>
+    <div class="card-hint">最近 7 天，每掉一次就是花了一笔</div>
+  </div>
+  <div class="drops" id="drops"><div class="empty">还没有记录</div></div>
+</div>
+
+<div class="card">
+  <div class="foot">
     <div>
       <div class="k">累计（从开始记账到现在）</div>
       <div class="v" id="total">—<small>元</small></div>
+      <div class="note" id="noteTotal">—</div>
     </div>
     <a class="feed" id="feed" href="https://platform.deepseek.com/top_up" target="_blank" rel="noopener">🐟 投喂大肥鱼</a>
   </div>
-  <div class="tip" id="tip">每 30 分钟看一次余额，余额掉多少就是她花了多少。</div>
-  <div style="margin-top:12px"><button id="snap">现在看一次</button> <span class="muted" id="msg"></span></div>
+  <div class="tip" id="tip">每 30 分钟看一次余额，余额掉多少，就是她花了多少。</div>
+  <div style="margin-top:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <button id="snap">现在看一次</button>
+    <span class="muted" id="msg"></span>
+  </div>
 </div>
+
 </div>
 <script>
 function el(id){ return document.getElementById(id) }
-function money(n){ return (Math.round(n*100)/100).toFixed(2) }
+function money(n){ return (Math.round((n||0)*100)/100).toFixed(2) }
+function hhmm(ts){
+  var d = new Date(ts);
+  var p = function(n){ return String(n).padStart(2,'0') };
+  return p(d.getHours()) + ':' + p(d.getMinutes());
+}
+function dayLabel(day){
+  var today = new Date(); var p = function(n){ return String(n).padStart(2,'0') };
+  var k = today.getFullYear()+'-'+p(today.getMonth()+1)+'-'+p(today.getDate());
+  if (day === k) return '今天';
+  var y = new Date(today); y.setDate(today.getDate()-1);
+  var yk = y.getFullYear()+'-'+p(y.getMonth()+1)+'-'+p(y.getDate());
+  if (day === yk) return '昨天';
+  return day.slice(5);
+}
+// 对比一句话
+function cmp(now, prev, label, unknownHint){
+  var d = Math.round((now - prev) * 100) / 100;
+  if (!prev && !now) return '<span class="same">' + label + '也没花钱</span>';
+  if (!prev) return '<span class="same">' + label + '没花钱</span>，今天开始有支出';
+  if (Math.abs(d) < 0.005) return '<span class="same">跟' + label + '一样</span>';
+  if (d > 0) return '<span class="up">比' + label + '多花 <b>' + money(d) + '</b> 元</span>';
+  return '<span class="down">比' + label + '少花 <b>' + money(-d) + '</b> 元</span>';
+}
+
+function paintChart(series){
+  var ch = el('chart'); ch.innerHTML = '';
+  var peak = 0, peakIdx = -1;
+  series.forEach(function(p, i){ if (p.amount > peak) { peak = p.amount; peakIdx = i } });
+  var top = peak > 0 ? peak : 1;
+  series.forEach(function(p, i){
+    var col = document.createElement('div');
+    col.className = 'col' + (i === peakIdx && peak > 0 ? ' peak' : '');
+    col.title = p.day + '  花了 ¥' + money(p.amount);
+    var mark = document.createElement('div'); mark.className = 'mark'; mark.textContent = '最高';
+    var amt = document.createElement('div'); amt.className = 'amt';
+    amt.textContent = p.amount > 0 ? money(p.amount) : '';
+    var bar = document.createElement('div'); bar.className = 'bar';
+    bar.style.height = Math.max(2, Math.round(p.amount / top * 92)) + '%';
+    var day = document.createElement('div'); day.className = 'day'; day.textContent = p.day;
+    col.appendChild(mark); col.appendChild(amt); col.appendChild(bar); col.appendChild(day);
+    ch.appendChild(col);
+  });
+  if (peak <= 0) {
+    var e = document.createElement('div');
+    e.className = 'empty'; e.textContent = '这 14 天她一分没花';
+    ch.innerHTML = ''; ch.appendChild(e);
+  }
+}
+
+function paintDrops(drops){
+  var box = el('drops');
+  if (!drops || !drops.length){ box.innerHTML = '<div class="empty">最近 7 天没有支出</div>'; return }
+  var byDay = {};
+  drops.forEach(function(d){ (byDay[d.day] = byDay[d.day] || []).push(d) });
+  box.innerHTML = '';
+  Object.keys(byDay).sort().reverse().forEach(function(day){
+    var list = byDay[day];
+    var sum = list.reduce(function(s, x){ return s + x.amount }, 0);
+    var g = document.createElement('div'); g.className = 'dgroup';
+    var head = document.createElement('div'); head.className = 'dhead';
+    head.innerHTML = '<span>' + dayLabel(day) + (dayLabel(day).length === 5 ? ' ' + day : '') + '</span>' +
+                     '<span>合计 <b>' + money(sum) + '</b> 元 · ' + list.length + ' 笔</span>';
+    g.appendChild(head);
+    list.forEach(function(d){
+      var row = document.createElement('div'); row.className = 'drow';
+      row.innerHTML = '<span class="time">' + hhmm(d.ts) + '</span>' +
+                      '<span class="money">−' + money(d.amount) + ' 元</span>';
+      g.appendChild(row);
+    });
+    box.appendChild(g);
+  });
+}
+
 function paint(d){
   el('sub').textContent = d.updatedAt
     ? ('上次更新 ' + new Date(d.updatedAt).toLocaleString('zh-CN', { hour12: false }) + ' · 共 ' + d.snaps + ' 次快照')
     : '还没开始攒数据';
+
   el('balance').innerHTML = (d.balance == null ? '—' : money(d.balance)) + '<small>元</small>';
-  el('today').innerHTML = money(d.today) + '<small>元</small>';
-  el('week').innerHTML = money(d.week) + '<small>元</small>';
-  el('month').innerHTML = money(d.month) + '<small>元</small>';
-  el('total').innerHTML = money(d.total) + '<small>元</small>';
+  el('today').innerHTML  = money(d.today) + '<small>元</small>';
+  el('week').innerHTML   = money(d.week)  + '<small>元</small>';
+  el('month').innerHTML  = money(d.month) + '<small>元</small>';
+  el('total').innerHTML  = money(d.total) + '<small>元</small>';
+
+  var p = d.prev || { day:0, week:0, month:0 };
+  el('noteToday').innerHTML = cmp(d.today, p.day, '昨天');
+  el('noteWeek').innerHTML  = cmp(d.week,  p.week, '上周');
+  el('noteMonth').innerHTML = cmp(d.month, p.month, '上月');
+  el('noteTotal').innerHTML = '一共 ' + d.snaps + ' 次快照，差额加起来就是她烧的钱';
+
   if (d.feedUrl) el('feed').href = d.feedUrl;
   if (d.note) el('tip').textContent = d.note;
-  var ch = el('chart'); ch.innerHTML = '';
-  var peak = 1;
-  d.series.forEach(function(p){ if (p.amount > peak) peak = p.amount });
-  d.series.forEach(function(p){
-    var b = document.createElement('div');
-    b.style.height = Math.max(2, Math.round(p.amount / peak * 92)) + '%';
-    b.title = p.day + '  ' + money(p.amount) + ' 元';
-    b.innerHTML = '<span>' + p.day + '</span>';
-    ch.appendChild(b);
-  });
+  paintChart(d.series || []);
+  paintDrops(d.drops || []);
 }
+
 function load(){
   fetch('/dsh-fish-bill/api/summary').then(function(r){ return r.json() }).then(paint).catch(function(e){
     el('sub').textContent = '读账失败：' + e;
   });
 }
+
 el('snap').addEventListener('click', function(){
-  el('msg').textContent = '看一次…';
+  var btn = el('snap');
+  btn.disabled = true; el('msg').textContent = '看一次…';
   fetch('/dsh-fish-bill/api/snap', { method:'POST' }).then(function(r){ return r.json() }).then(function(d){
-    if (d.ok){ el('msg').textContent = '记下了'; paint(d) } else { el('msg').textContent = d.error || '失败' }
-  }).catch(function(e){ el('msg').textContent = '出错了：' + e });
+    btn.disabled = false;
+    if (d.ok){ el('msg').textContent = '记下了'; paint(d) } else { el('msg').textContent = d.error || '失败，待会再试' }
+  }).catch(function(e){ btn.disabled = false; el('msg').textContent = '出错了：' + e });
 });
+
 load();
 </script></body></html>
