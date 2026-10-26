@@ -1,0 +1,40 @@
+{
+  "name": "dsh-fish-bill",
+  "version": "0.3.0",
+  "description": "看 AI 搭子（肥鱼）花了多少钱的 DSH 面板插件",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js"
+  },
+  "files": [
+    "lib/",
+    "assets/",
+    "cordis.patch.yml",
+    "README.md",
+    "PRIVACY.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "balance",
+    "deepseek",
+    "bill"
+  ],
+  "license": "MIT",
+  "author": "纸鱼",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Atlanticfishyuyu/zhiyuzhicha.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Atlanticfishyuyu/zhiyuzhicha/issues"
+  },
+  "homepage": "https://github.com/Atlanticfishyuyu/zhiyuzhicha#readme",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
